@@ -1,7 +1,11 @@
-export default function Home() {
+import type { NextPage } from "next";
+
+const Home: NextPage = () => {
   return (
-    <>
-      <h1>Home</h1>
-    </>
+    <div className="bg-red-500">
+      <h1 className="text-black">It Works</h1>
+    </div>
   );
-}
+};
+
+export default Home;
