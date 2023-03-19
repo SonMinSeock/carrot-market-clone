@@ -31,7 +31,7 @@ const Home: NextPage = () => {
           Checkout
         </button>
       </div>
-      <div className="bg-white overflow-hidden rounded-3xl shadow-xl">
+      <div className="bg-white overflow-hidden rounded-3xl shadow-xl group">
         <div className="bg-blue-500 p-6 pb-14 flex justify-between">
           <span className="text-white text-2xl">Profile</span>
           <span className="text-white text-2xl">장바구니</span>
@@ -49,7 +49,9 @@ const Home: NextPage = () => {
             </div>
           </div>
           <div className="relative  flex flex-col items-center -mt-10 -mb-5">
-            <span className="text-lg font-medium">Son MinSeock</span>
+            <span className="text-lg font-medium group-hover:text-teal-500 transition-colors">
+              Son MinSeock
+            </span>
             <span className="text-sm text-gray-500">한국</span>
           </div>
         </div>
