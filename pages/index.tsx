@@ -2,16 +2,18 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
   return (
-    <div className="bg-slate-400 py-20 px-10 grid gap-10 min-h-screen">
-      <div className="bg-white sm:hover:bg-pink-800 sm:bg-red-400 md:bg-teal-400 lg:bg-indigo-400 xl:bg-yellow-400 2xl:bg-pi p-6 rounded-3xl shadow-xl">
+    <div className="bg-slate-400 py-20 px-10 grid lg:grid-cols-2 xl:grid-cols-3 xl:place-content-center gap-10 min-h-screen">
+      <div className="bg-white flex flex-col justify-between p-6 rounded-3xl shadow-xl">
         <span className="font-semibold text-3xl">Select Item</span>
-        <div className="flex justify-between my-2">
-          <span className="text-gray-500">Grey Chair</span>
-          <span className="font-semibold">$19</span>
-        </div>
-        <div className="flex justify-between my-2">
-          <span className="text-gray-500">Grey Chair</span>
-          <span className="font-semibold">$19</span>
+        <div>
+          <div className="flex justify-between my-2">
+            <span className="text-gray-500">Grey Chair</span>
+            <span className="font-semibold">$19</span>
+          </div>
+          <div className="flex justify-between my-2">
+            <span className="text-gray-500">Grey Chair</span>
+            <span className="font-semibold">$19</span>
+          </div>
         </div>
         <div className="flex justify-between mt-2 pt-2 border-t-2 border-dashed">
           <span>Total</span>
@@ -22,7 +24,7 @@ const Home: NextPage = () => {
         </button>
       </div>
       <div className="bg-white overflow-hidden rounded-3xl shadow-xl">
-        <div className="bg-blue-500 p-6 pb-14 flex justify-between">
+        <div className="portrait:bg-indigo-600 landscape:bg-teal-500 p-6 pb-14 xl:pb-40 flex justify-between">
           <span className="text-white text-2xl">Profile</span>
           <span className="text-white text-2xl">장바구니</span>
         </div>
@@ -44,7 +46,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white p-10 rounded-2xl shadow-xl">
+      <div className="bg-white p-10 rounded-2xl shadow-xl lg:col-span-2 xl:col-span-1">
         <div className="flex justify-between items-center mb-5">
           <span>⬅️</span>
           <div className="space-x-3">
