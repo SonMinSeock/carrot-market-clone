@@ -3,6 +3,9 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   return (
     <div className="bg-slate-400 dark py-20 px-10 grid lg:grid-cols-2 xl:grid-cols-3 xl:place-content-center gap-10 min-h-screen">
+      <div className="text-[900px] text-[#764ba2] bg-[url('/vercel.svg')]">
+        Hello
+      </div>
       <div className="bg-white dark:bg-black flex flex-col justify-between p-6 rounded-3xl shadow-xl">
         <span className="font-semibold dark:text-white text-3xl">
           Select Item
