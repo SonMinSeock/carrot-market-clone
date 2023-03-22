@@ -1,11 +1,17 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
+  const onClick = (id: number) => router.push(`/items/${id}`);
+
   return (
     <div className="flex flex-col space-y-5 py-10">
       {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((_, i) => (
         <div
           key={i}
+          onClick={() => onClick(i)}
           className="flex justify-between px-4 border-b pb-4 cursor-pointer"
         >
           <div className="flex space-x-4">
@@ -56,7 +62,7 @@ const Home: NextPage = () => {
           </div>
         </div>
       ))}
-      <button className="fixed hover:bg-orange-500 transition-colors cursor-pointer bottom-24 right-5 shadow-xl bg-orange-400 rounded-full p-4 text-white ">
+      <button className="fixed hover:bg-orange-500  transition-colors cursor-pointer bottom-24 right-5 shadow-xl bg-orange-400 rounded-full p-4 text-white ">
         <svg
           className="h-6 w-6"
           xmlns="http://www.w3.org/2000/svg"
