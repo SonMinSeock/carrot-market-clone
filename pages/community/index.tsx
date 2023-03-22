@@ -6,6 +6,9 @@ const Community: NextPage = () => {
 
   const navigateCommunityDetail = (id: number) =>
     router.push(`/community/${id}`);
+
+  const navigateWrite = () => router.push(`/community/write`);
+
   return (
     <div className="py-16 px-4 space-y-8">
       {[1, 2, 3, 4, 5, 6].map((_, i) => (
@@ -62,7 +65,10 @@ const Community: NextPage = () => {
           </div>
         </div>
       ))}
-      <button className="fixed hover:bg-orange-500  transition-colors cursor-pointer bottom-24 right-5 shadow-xl bg-orange-400 rounded-full p-4 text-white ">
+      <button
+        className="fixed hover:bg-orange-500  transition-colors cursor-pointer bottom-24 right-5 shadow-xl bg-orange-400 rounded-full p-4 text-white "
+        onClick={navigateWrite}
+      >
         <svg
           className="w-6 h-6"
           fill="none"
