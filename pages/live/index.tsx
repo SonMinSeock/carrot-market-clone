@@ -1,15 +1,30 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 const Live: NextPage = () => {
+  const router = useRouter();
+
+  const navigateCreateLive = () => router.push(``);
+
+  const navigateStream = (id: number) => router.push(`/live/${id}`);
+
   return (
     <div className="py-10  divide-y-2 space-y-4">
       {[1, 2, 3, 4, 5].map((_, i) => (
         <div className="pt-4 px-4" key={i}>
           <div className="w-full bg-slate-300 aspect-video rounded-md shadow-sm" />
-          <h3 className="text-gray-700 text-lg mt-2">Let's try About</h3>
+          <h3
+            onClick={() => navigateStream(i)}
+            className="text-gray-700 text-lg mt-2 cursor-pointer inline-block"
+          >
+            Let's try About
+          </h3>
         </div>
       ))}
-      <button className="fixed hover:bg-orange-500  transition-colors cursor-pointer bottom-24 right-5 shadow-xl bg-orange-400 rounded-full p-4 text-white border-transparent ">
+      <button
+        onClick={navigateCreateLive}
+        className="fixed hover:bg-orange-500  transition-colors cursor-pointer bottom-24 right-5 shadow-xl bg-orange-400 rounded-full p-4 text-white border-transparent "
+      >
         <svg
           className="w-6 h-6"
           fill="none"
