@@ -1,13 +1,23 @@
 import type { NextPage } from "next";
+import { useRouter } from "next/router";
 
 const Profile: NextPage = () => {
+  const router = useRouter();
+
+  const navigateEditProfile = () => router.push(`/profile/edit`);
+
   return (
     <div className="py-10 px-4">
       <div className="flex items-center space-x-3">
         <div className="w-16 h-16 bg-slate-500 rounded-full" />
         <div className="flex flex-col">
           <span className="font-medium text-gray-900">Steve Jebs</span>
-          <span className="text-sm text-gray-700">Edit profile &rarr;</span>
+          <span
+            onClick={navigateEditProfile}
+            className="text-sm text-gray-700 cursor-pointer"
+          >
+            Edit profile &rarr;
+          </span>
         </div>
       </div>
       <div className="mt-10 flex justify-around">
