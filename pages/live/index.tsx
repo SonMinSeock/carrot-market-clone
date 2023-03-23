@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 const Live: NextPage = () => {
   const router = useRouter();
 
-  const navigateCreateLive = () => router.push(``);
+  const navigateCreateLive = () => router.push(`/streams/create`);
 
   const navigateStream = (id: number) => router.push(`/live/${id}`);
 
@@ -15,9 +15,9 @@ const Live: NextPage = () => {
           <div className="w-full bg-slate-300 aspect-video rounded-md shadow-sm" />
           <h3
             onClick={() => navigateStream(i)}
-            className="text-gray-700 text-lg mt-2 cursor-pointer inline-block"
+            className="text-gray-700 text-2xl mt-2 cursor-pointer inline-block font-bold"
           >
-            Let's try About
+            Galaxy S50
           </h3>
         </div>
       ))}
