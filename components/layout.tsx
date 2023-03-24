@@ -28,7 +28,25 @@ export default function Layout({
         )}
       >
         {title ? <span>{title}</span> : null}
-        {canGoBack ? <button onClick={onClick}>&larr;</button> : null}
+        {canGoBack ? (
+          <button onClick={onClick}>
+            {" "}
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M15 19l-7-7 7-7"
+              ></path>
+            </svg>
+          </button>
+        ) : null}
       </header>
       <div className={cls("pt-16", hasTabBar ? "pb-16" : "")}>{children}</div>
       {hasTabBar ? (
