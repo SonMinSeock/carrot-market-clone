@@ -4,6 +4,7 @@ interface LoginForm {
   username: string;
   password: string;
   email: string;
+  errors: string;
 }
 
 function Form() {
@@ -11,16 +12,20 @@ function Form() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
+    resetField,
   } = useForm<LoginForm>({
     mode: "onChange",
   });
   const onValid = (data: LoginForm) => {
     console.log("I'm Valid");
+    setError("username", { message: "Taken Username" });
+    resetField("password");
   };
   const onInValid = (errors: FieldErrors) => {
     console.log(errors);
   };
-  console.log("errors : ", errors);
+
   return (
     <form onSubmit={handleSubmit(onValid, onInValid)}>
       <input
@@ -34,6 +39,7 @@ function Form() {
         type="text"
         placeholder="Username"
       />
+      {errors.username?.message}
       <input
         {...register("email", {
           required: "Email is Required",
