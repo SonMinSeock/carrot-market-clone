@@ -5,13 +5,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await client.user.create({
-    data: {
-      email: "abc@naver.com",
-      name: "lee",
-    },
-  });
-  res.json({
-    ok: true,
-  });
+  if (req.method !== "POST") {
+    res.status(401).end();
+  }
+  console.log(req.body.email);
+  res.status(200).end();
 }
