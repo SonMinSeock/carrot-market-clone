@@ -35,7 +35,7 @@ const ItemDetail: NextPage = () => {
     if (!data) return;
     boundMutate((prev) => prev && { ...prev, isLiked: !prev.isLiked }, false);
     //mutate("/api/users/me", (prev: any) => ({ ok: !prev.ok }), false);
-    //toggleFav({});
+    toggleFav({});
   };
 
   return (
