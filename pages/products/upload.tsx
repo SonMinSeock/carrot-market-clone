@@ -22,7 +22,8 @@ interface UploadProductMutation {
 
 const Upload: NextPage = () => {
   const { register, handleSubmit } = useForm<UploadProductForm>();
-  const [uploadProduct, { loading, data }] = useMutation("/api/products");
+  const [uploadProduct, { loading, data }] =
+    useMutation<UploadProductMutation>("/api/products");
   const router = useRouter();
 
   const onValid = (data: UploadProductForm) => {
