@@ -45,15 +45,6 @@ async function handler(
       },
       answer,
     },
-    include: {
-      user: {
-        select: {
-          id: true,
-          name: true,
-          avatar: true,
-        },
-      },
-    },
   });
 
   console.log("backend 새로운 답변 : ", newAnswer);
