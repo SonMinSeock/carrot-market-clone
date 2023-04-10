@@ -5,6 +5,10 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { Answer, Post, User } from "@prisma/client";
 import Link from "next/link";
+import useMutation from "@/libs/client/useMutation";
+import { cls } from "@/libs/client/utils";
+import { useForm } from "react-hook-form";
+import { useEffect } from "react";
 
 interface AnswerWithUser extends Answer {
   user: User;
@@ -22,16 +26,66 @@ interface PostWithUser extends Post {
 interface CommunityPostResponse {
   ok: boolean;
   post: PostWithUser;
+  isWondering: boolean;
+}
+
+interface AnswerForm {
+  answer: string;
+}
+
+interface AnswerResponse {
+  ok: boolean;
+  answer: Answer;
 }
 
 const CommunityPostDetail: NextPage = () => {
   const router = useRouter();
 
-  const { data, error } = useSWR<CommunityPostResponse>(
+  const { data, mutate } = useSWR<CommunityPostResponse>(
     router.query.id ? `/api/posts/${router.query.id}` : null
   );
 
-  console.log(data);
+  const [wonder, { data: wonderResData, loading }] =
+    useMutation<AnswerResponse>(`/api/posts/${router.query.id}/wonder`);
+
+  const [sendAnswer, { data: answerData, loading: answerLoading }] =
+    useMutation(`/api/posts/${router.query.id}/answers`);
+
+  const { register, handleSubmit, reset } = useForm<AnswerForm>();
+
+  const onWonderClick = () => {
+    if (!data) return;
+    mutate(
+      {
+        ...data,
+        post: {
+          ...data.post,
+          _count: {
+            ...data.post._count,
+            wonderings: data.isWondering
+              ? data?.post._count.wonderings - 1
+              : data?.post._count.wonderings + 1,
+          },
+        },
+        isWondering: !data.isWondering,
+      },
+      false
+    );
+    if (!loading) {
+      wonder({});
+    }
+  };
+
+  const onValid = (form: AnswerForm) => {
+    if (answerLoading) return;
+    sendAnswer(form);
+  };
+
+  useEffect(() => {
+    if (answerData && answerData.ok) {
+      reset();
+    }
+  }, [answerData, reset]);
 
   return (
     <Layout canGoBack>
@@ -57,7 +111,13 @@ const CommunityPostDetail: NextPage = () => {
           {data?.post.question}
         </div>
         <div className="flex px-4 space-x-5 mt-3 text-gray-700 py-2.5 border-t border-b-[2px]  w-full">
-          <span className="flex space-x-2 items-center text-sm">
+          <button
+            className={cls(
+              "flex space-x-2 items-center text-sm",
+              data?.isWondering ? "text-teal-600" : ""
+            )}
+            onClick={onWonderClick}
+          >
             <svg
               className="w-4 h-4"
               fill="none"
@@ -73,7 +133,7 @@ const CommunityPostDetail: NextPage = () => {
               ></path>
             </svg>
             <span>궁금해요 {data?.post._count.wonderings}</span>
-          </span>
+          </button>
           <span className="flex space-x-2 items-center text-sm">
             <svg
               className="w-4 h-4"
@@ -101,24 +161,23 @@ const CommunityPostDetail: NextPage = () => {
               <span className="text-sm block font-medium text-gray-700">
                 {answer.user.name}
               </span>
-              <span className="text-xs text-gray-500 block ">
-                {String(answer.createdAt)}
-              </span>
+              <span className="text-xs text-gray-500 block ">{}</span>
               <p className="text-gray-700 mt-2">{answer.answer}</p>
             </div>
           </div>
         </div>
       ))}
-      <div className="px-4">
+      <form className="px-4" onSubmit={handleSubmit(onValid)}>
         <TextArea
+          register={register("answer", { required: true, minLength: 5 })}
           name="description"
           placeholder="Answer this question!"
           required
         />
         <button className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium focus:ring-2 focus:ring-offset-2 focus:ring-orange-500 focus:outline-none ">
-          Reply
+          {answerLoading ? "Loading..." : "Reply"}
         </button>
-      </div>
+      </form>
     </Layout>
   );
 };
